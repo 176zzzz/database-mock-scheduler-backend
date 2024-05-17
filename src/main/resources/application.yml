@@ -1,0 +1,5 @@
+server:
+  port: 6850
+spring:
+  application:
+    name: database-mock-scheduler
