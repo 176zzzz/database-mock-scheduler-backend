@@ -1,15 +1,14 @@
-package com.zp.scheduler;
+package com.zp.core.scheduler;
 
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
 /**
- * QuartzTestJob
+ * Job
  *
  * @author ZP
- * @since 2024/5/17 11:11
+ * @since 2024/5/17 14:31
  */
-public class QuartzTestJob implements Job {
+public class DataInsertJob implements org.quartz.Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {

@@ -1,11 +1,13 @@
 package com.zp;
 
-import com.zp.scheduler.QuartzTestJob;
+import com.zp.model.entity.QuartzJob;
+import com.zp.core.scheduler.JobScheduler;
 import org.junit.jupiter.api.Test;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,6 +18,9 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootTest
 public class QuartzTest {
+
+    @Resource
+    private JobScheduler jobScheduler;
 
     @Test
     void jobTest() throws SchedulerException, InterruptedException {
@@ -39,6 +44,31 @@ public class QuartzTest {
         TimeUnit.MINUTES.sleep(1);
         scheduler.shutdown();
         System.out.println("--------scheduler shutdown ! ------------");
+    }
+
+    @Test
+    void jobSchedulerTest() throws SchedulerException, InterruptedException {
+        QuartzJob quartzJob = new QuartzJob();
+        quartzJob.setJobName("test");
+        quartzJob.setJobGroup("testGroup");
+        quartzJob.setActivated(true);
+        quartzJob.setCronExpression("0/2 * * * * ?");
+        jobScheduler.addQuartzJob(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        quartzJob.setCronExpression("0/1 * * * * ?");
+        jobScheduler.updateQuartzJob(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        quartzJob.setActivated(false);
+        jobScheduler.changeQuartzJobStatus(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        quartzJob.setActivated(true);
+        jobScheduler.changeQuartzJobStatus(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        jobScheduler.deleteQuartzJob(quartzJob);
     }
 
 }
