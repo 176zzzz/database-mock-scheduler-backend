@@ -1,5 +1,6 @@
 package com.zp;
 
+import com.zp.common.exception.ServiceException;
 import com.zp.model.entity.QuartzJob;
 import com.zp.core.scheduler.JobScheduler;
 import org.junit.jupiter.api.Test;
@@ -14,13 +15,15 @@ import java.util.concurrent.TimeUnit;
  * QuartzTestJob
  *
  * @author ZP
- * @since 2024/5/17 11:10
+ * 
  */
 @SpringBootTest
 public class QuartzTest {
 
     @Resource
     private JobScheduler jobScheduler;
+
+    private String second = "0/1 * * * * ?";
 
     @Test
     void jobTest() throws SchedulerException, InterruptedException {
@@ -47,25 +50,30 @@ public class QuartzTest {
     }
 
     @Test
-    void jobSchedulerTest() throws SchedulerException, InterruptedException {
-        QuartzJob quartzJob = new QuartzJob();
-        quartzJob.setJobName("test");
-        quartzJob.setJobGroup("testGroup");
-        quartzJob.setActivated(true);
+    void jobSchedulerTest() throws SchedulerException, InterruptedException, ServiceException {
+        QuartzJob quartzJob =new QuartzJob();
+        quartzJob.setJobGroup("default");
+        quartzJob.setJobName("test_01");
+        quartzJob.setCronExpression(second);
+        jobScheduler.deleteQuartzJob(quartzJob);
+        //启动
+        System.out.println("启动");
+        jobScheduler.runQuartzJob(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        //暂停
+        System.out.println("暂停");
+        jobScheduler.stopQuartzJob(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        //启动
+        System.out.println("启动");
+        jobScheduler.runQuartzJob(quartzJob);
+        TimeUnit.SECONDS.sleep(10);
+
+        System.out.println("更新");
         quartzJob.setCronExpression("0/2 * * * * ?");
-        jobScheduler.addQuartzJob(quartzJob);
-        TimeUnit.SECONDS.sleep(10);
-
-        quartzJob.setCronExpression("0/1 * * * * ?");
         jobScheduler.updateQuartzJob(quartzJob);
-        TimeUnit.SECONDS.sleep(10);
-
-        quartzJob.setActivated(false);
-        jobScheduler.changeQuartzJobStatus(quartzJob);
-        TimeUnit.SECONDS.sleep(10);
-
-        quartzJob.setActivated(true);
-        jobScheduler.changeQuartzJobStatus(quartzJob);
         TimeUnit.SECONDS.sleep(10);
 
         jobScheduler.deleteQuartzJob(quartzJob);

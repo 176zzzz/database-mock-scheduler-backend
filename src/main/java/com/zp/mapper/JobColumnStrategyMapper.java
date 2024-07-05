@@ -1,7 +1,7 @@
 package com.zp.mapper;
 
-import com.zp.model.entity.Dic;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zp.model.entity.JobColumnStrategy;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author mybatis-plus-generator-3.5.1
- * @since 2024-05-22 02:40:56
+ * @since 2024-05-21 10:34:38
  */
 @Mapper
-public interface DicMapper extends BaseMapper<Dic> {
+public interface JobColumnStrategyMapper extends BaseMapper<JobColumnStrategy> {
 
 }

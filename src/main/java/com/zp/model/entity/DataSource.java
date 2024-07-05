@@ -1,6 +1,5 @@
 package com.zp.model.entity;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -16,23 +15,28 @@ import lombok.Setter;
  * </p>
  *
  * @author mybatis-plus-generator-3.5.1
- * @since 2024-05-22 02:40:57
+ * @since 2024-05-30 08:56:03
  */
 @Getter
 @Setter
-@TableName("dic_detail")
-public class DicDetail {
+@TableName("data_source")
+public class DataSource {
 
     @JsonSerialize(using= ToStringSerializer.class)
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
-    @TableField("dic_id")
-    private Long dicId;
+    @TableField("url")
+    private String url;
 
-    @TableField("value")
-    @Excel(name = "字典值")
-    private String value;
+    @TableField("username")
+    private String username;
+
+    @TableField("password")
+    private String password;
+
+    @TableField("driver")
+    private String driver;
 
 
 }

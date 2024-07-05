@@ -1,22 +1,26 @@
 package com.zp.model.entity;
 
+
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * QuartzJob
  *
  * @author ZP
- * @since 2024/5/17 14:30
+ * 
  */
 @Data
 public class QuartzJob {
 
+    @NotNull()
     private String jobName;
 
+    @NotNull()
     private String jobGroup;
 
+    @NotNull()
     private String cronExpression;
-
-    private boolean activated;
 
 }

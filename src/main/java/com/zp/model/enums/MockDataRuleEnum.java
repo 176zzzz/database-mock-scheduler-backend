@@ -4,10 +4,12 @@ package com.zp.model.enums;
  * MockDataType
  *
  * @author ZP
- * @since 2024/5/17 15:51
+ * 
  */
 public enum MockDataRuleEnum {
-
+    /**
+     * 固定值
+     */
     FIXED("FIXED","固定值"),
 
     INTEGER("INTEGER","整数"),
@@ -16,15 +18,30 @@ public enum MockDataRuleEnum {
 
     DATE("DATE","日期"),
 
-    DIC("DIC","数据字典");
+    FUN("FUN","函数"),
 
-    private String code;
+    DIC("DIC","数据字典"),
 
-    private String name;
+    /**
+     * 其他
+     */
+    ADDRESS("ADDRESS","地址"),
+
+    NAME("NAME","名称"),
+
+    TELEPHONE("TELEPHONE","电话");
+
+    private final String code;
+
+    private final String name;
 
     private MockDataRuleEnum(String code,String name){
         this.code=code;
         this.name=name;
+    }
+
+    public String getCode(){
+        return this.code;
     }
 
 }
