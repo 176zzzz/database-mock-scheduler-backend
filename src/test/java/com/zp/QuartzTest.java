@@ -27,7 +27,7 @@ public class QuartzTest {
 
     @Test
     void jobTest() throws SchedulerException, InterruptedException {
-        // 1、创建JobDetail实例，并与PrintWordsJob类绑定(Job执行内容)1
+        // 1、创建JobDetail实例，并与PrintWordsJob类绑定(Job执行内容)
         JobDetail jobDetail = JobBuilder.newJob(QuartzTestJob.class)
             .withIdentity("job1", "group1").build();
         // 2、构建Trigger实例,每隔1s执行一次
