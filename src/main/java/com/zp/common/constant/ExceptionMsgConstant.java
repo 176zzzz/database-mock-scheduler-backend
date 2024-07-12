@@ -36,8 +36,6 @@ public class ExceptionMsgConstant {
 
     public static final String DIC_NOT_FOUND = "未找到对应字典";
 
-    public static final String FUN_NOT_RETURN = "函数没有返回值或内部出错";
-
     public static final String FUN_NULL = "函数为空";
 
     public static final String DICDETAIL_NULL = "数据字典为空";
