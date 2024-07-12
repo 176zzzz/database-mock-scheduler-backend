@@ -20,8 +20,6 @@ public class ExceptionMsgConstant {
 
     public static final String NOT_STOP_INACTIVATED = "不能删除正在运行的任务";
 
-    public static final String NOT_JOB = "对应任务不存在";
-
     public static final String NOT_COLUMN_NULL = "该列未定义生成策略";
 
     public static final String NOT_FOUND_STRATEGY = "找不到对应策略";
