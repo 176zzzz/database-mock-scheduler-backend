@@ -5,13 +5,17 @@ import com.zp.model.common.ResponseResult;
 import com.zp.model.dto.JobInfoListDTO;
 import com.zp.model.entity.JobInfo;
 import com.zp.service.JobService;
-import org.quartz.SchedulerException;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
+import javax.annotation.Resource;
+import org.quartz.SchedulerException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * JobController
@@ -26,13 +30,13 @@ public class JobController {
     private JobService jobService;
 
     @GetMapping(value = "/getInsertSql")
-    public ResponseResult<List<String>> getInsertSql(String code) throws ServiceException, ParseException,
+    public ResponseResult<List<String>> getInsertSql(@RequestParam String code) throws ServiceException, ParseException,
         SQLException {
         return ResponseResult.success(jobService.getInsertSql(code));
     }
 
     @GetMapping(value = "/runOnce")
-    public ResponseResult<String> runOnce(String code) {
+    public ResponseResult<String> runOnce(@RequestParam String code) {
         jobService.runOnce(code);
         return ResponseResult.success();
     }

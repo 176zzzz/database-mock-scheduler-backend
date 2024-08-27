@@ -72,7 +72,7 @@ public class DicServiceImpl extends ServiceImpl<DicMapper, Dic> implements DicSe
     public Boolean exportByDicId(Long dicId, HttpServletResponse response) throws ServiceException {
         List<DicDetail> dicDetailList = dicDetailService.getListByDicId(dicId);
         if (CollectionUtils.isEmpty(dicDetailList)) {
-            throw new ServiceException(ExceptionMsgConstant.DICDETAIL_NULL);
+            throw new ServiceException(ExceptionMsgConstant.DIC_DETAIL_NULL);
         }
         Dic dic = this.getById(dicId);
         if (dic == null) {

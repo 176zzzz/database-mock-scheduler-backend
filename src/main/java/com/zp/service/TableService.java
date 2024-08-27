@@ -1,5 +1,6 @@
 package com.zp.service;
 
+import com.zp.common.exception.ServiceException;
 import com.zp.model.domain.TableInfo;
 
 import java.util.List;
@@ -12,5 +13,9 @@ import java.util.List;
  */
 public interface TableService {
 
-    List<TableInfo> tableList();
+    /**
+     * tableList
+     * @return List<TableInfo>
+     */
+    List<TableInfo> tableList() throws ServiceException;
 }

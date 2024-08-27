@@ -15,6 +15,11 @@ import java.util.List;
  */
 public interface JobColumnInfoService extends IService<JobColumnInfo> {
 
+    /**
+     * getJobColumnListByCode 根据code获取任务详情
+     * @param code String
+     * @return List<JobColumnInfo>
+     */
     List<JobColumnInfo> getJobColumnListByCode(String code);
 
 }

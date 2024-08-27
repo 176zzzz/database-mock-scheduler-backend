@@ -1,6 +1,7 @@
 package com.zp.service.impl;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.zp.common.exception.ServiceException;
 import com.zp.core.ds.DsInfoProvider;
 import com.zp.model.domain.TableInfo;
 import com.zp.service.TableService;
@@ -25,7 +26,7 @@ public class TableServiceImpl implements TableService {
     private DynamicRoutingDataSource dynamicRoutingDataSource;
 
     @Override
-    public List<TableInfo> tableList(){
-        return null;
+    public List<TableInfo> tableList() throws ServiceException {
+        return dsInfoProvider.getTables();
     }
 }

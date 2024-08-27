@@ -1,15 +1,19 @@
 package com.zp;
 
-import com.zp.common.exception.ServiceException;
-import com.zp.model.entity.QuartzJob;
 import com.zp.core.scheduler.JobScheduler;
+import com.zp.model.entity.QuartzJob;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
 import org.junit.jupiter.api.Test;
-import org.quartz.*;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 /**
  * QuartzTestJob
@@ -22,8 +26,6 @@ public class QuartzTest {
 
     @Resource
     private JobScheduler jobScheduler;
-
-    private String second = "0/1 * * * * ?";
 
     @Test
     void jobTest() throws SchedulerException, InterruptedException {
@@ -50,10 +52,11 @@ public class QuartzTest {
     }
 
     @Test
-    void jobSchedulerTest() throws SchedulerException, InterruptedException, ServiceException {
+    void jobSchedulerTest() throws SchedulerException, InterruptedException {
         QuartzJob quartzJob =new QuartzJob();
         quartzJob.setJobGroup("default");
         quartzJob.setJobName("test_01");
+        String second = "0/1 * * * * ?";
         quartzJob.setCronExpression(second);
         jobScheduler.deleteQuartzJob(quartzJob);
         //启动

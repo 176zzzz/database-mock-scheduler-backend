@@ -32,7 +32,6 @@ public class ExcelStyleUtil implements IExcelExportStyler {
         this.init(workbook);
     }
 
-    private int rowHeight;
 
     /**
      * 初始化样式
@@ -43,8 +42,6 @@ public class ExcelStyleUtil implements IExcelExportStyler {
         this.headerStyle = initHeaderStyle(workbook);
         this.titleStyle = initTitleStyle(workbook);
         this.styles = initStyles(workbook);
-        // 初始化行高为20
-        this.rowHeight = 20;
     }
 
     /**

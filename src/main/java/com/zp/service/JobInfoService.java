@@ -15,8 +15,20 @@ import java.util.List;
  */
 public interface JobInfoService extends IService<JobInfo> {
 
+    /**
+     * getByCode 获取任务
+     * @param code String
+     * @param activated Boolean
+     * @return JobInfo
+     */
     JobInfo getByCode(String code,Boolean activated);
 
+    /**
+     * getByCodeList
+ * @param codeList List
+ * @param activated Boolean
+ * @return List<JobInfo>
+     */
     List<JobInfo> getByCodeList(List<String> codeList, Boolean activated);
 
 }

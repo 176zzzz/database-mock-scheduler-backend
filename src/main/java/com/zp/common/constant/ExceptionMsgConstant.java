@@ -38,7 +38,7 @@ public class ExceptionMsgConstant {
 
     public static final String FUN_NULL = "函数为空";
 
-    public static final String DICDETAIL_NULL = "数据字典为空";
+    public static final String DIC_DETAIL_NULL = "数据字典为空";
 
     public static final String IMPORT_FAIL = "导入失败，数据字典为空";
 

@@ -4,14 +4,12 @@ import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import com.zp.common.constant.SysConstant;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
-import java.util.List;
 
 /**
  * @author ZP
@@ -19,12 +17,9 @@ import java.util.List;
 @Configuration
 public class QuartzAutoConfiguration {
 
-    @Autowired
-    private DynamicDataSourceProperties properties;
-
     @Primary
     @Bean
-    public DataSource dataSource(List<DynamicDataSourceProvider> providers) {
+    public DataSource dataSource(List<DynamicDataSourceProvider> providers, DynamicDataSourceProperties properties) {
         DynamicRoutingDataSource dataSource = new DynamicRoutingDataSource(providers);
         dataSource.setPrimary(properties.getPrimary());
         dataSource.setStrict(properties.getStrict());

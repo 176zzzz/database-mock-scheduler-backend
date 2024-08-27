@@ -41,9 +41,7 @@ public class MysqlSqlGenerator implements SqlGenerator {
         List<String> insertSqlList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
         sql.append("insert into ").append(jobConstruct.getTableName()).append("(");
-        jobConstruct.getJobColumnInfoList().forEach(jobColumnInfo -> {
-            sql.append(jobColumnInfo.getColumnName()).append(",");
-        });
+        jobConstruct.getJobColumnInfoList().forEach(jobColumnInfo -> sql.append(jobColumnInfo.getColumnName()).append(","));
         sql.deleteCharAt(sql.length() - 1).append(")");
 
         for (Integer i = 0; i < jobConstruct.getCount(); i++) {

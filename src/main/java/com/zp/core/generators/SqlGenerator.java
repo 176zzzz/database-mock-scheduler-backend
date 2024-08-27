@@ -14,9 +14,12 @@ import java.util.List;
  */
 public interface SqlGenerator {
 
-    /**
-     * 获取插入数据接口
-     * @return 插入数据List
-     */
+   /**
+    * getInsertSql
+    * @param jobConstruct JobConstruct
+    * @return List<String>
+    * @exception ServiceException 服务异常
+    * @exception ParseException ParseException
+    */
     List<String> getInsertSql(JobConstruct jobConstruct) throws ServiceException, ParseException;
 }

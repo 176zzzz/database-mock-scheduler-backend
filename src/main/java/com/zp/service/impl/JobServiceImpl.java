@@ -98,7 +98,7 @@ public class JobServiceImpl implements JobService {
             logGenerator.insertLog(code, failLog);
             logGenerator.insertErrorLog(code, failLog);
             log.info(failLog);
-            throw new RuntimeException("任务运行失败");
+            throw new RuntimeException("任务运行失败,报错为:" + e.getMessage());
         }
     }
 

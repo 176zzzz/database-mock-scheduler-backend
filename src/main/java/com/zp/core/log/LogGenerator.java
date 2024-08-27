@@ -24,10 +24,12 @@ public class LogGenerator {
     @Value("${log.path}")
     private String path;
 
+    private static final String SLASHES = "/";
+
     public void insertLog(String code, String content) {
         //1.日志保存路径 形如xxx/code/info/20240527.log
         String logFilePath =
-            path + "/" + code + "/" + "/" + LogLevel.INFO.getLevel() + "/" + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) +
+            path + SLASHES + code + SLASHES + SLASHES + LogLevel.INFO.getLevel() + SLASHES + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) +
                 ".log";
         //2.保存日志
         insertLogBase(code, content, logFilePath);
@@ -36,7 +38,7 @@ public class LogGenerator {
     public void insertErrorLog(String code, String content) {
         //1.日志保存路径 形如xxx/code/error/20240527.log
         String logFilePath =
-            path + "/" + code + "/" + "/" + LogLevel.ERROR.getLevel() + "/" + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) +
+            path + SLASHES + code + SLASHES + SLASHES + LogLevel.ERROR.getLevel() + SLASHES + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) +
                 ".log";
         //2.保存日志
         insertLogBase(code, content, logFilePath);
@@ -45,7 +47,7 @@ public class LogGenerator {
 
     public List<String> getAllFilesByCode(String code, String level) {
         List<String> fileNames = new ArrayList<>();
-        File directory = new File(path + "/" + code + "/" + level);
+        File directory = new File(path + SLASHES + code + SLASHES + level);
         if (directory.exists() && directory.isDirectory()) {
             File[] files = directory.listFiles();
             if (files != null) {
@@ -60,7 +62,7 @@ public class LogGenerator {
     }
 
     public String getFileContentByCodeAndFileName(String code, String fileName, String level) {
-        String filePath = path + "/" + code + "/" + level + "/" + fileName;
+        String filePath = path + SLASHES + code + SLASHES + level + SLASHES + fileName;
         StringBuilder content = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -75,15 +77,15 @@ public class LogGenerator {
 
 
     private void insertLogBase(String code, String content, String path) {
-        //1.日志保存路径 形如xxx/code/20240527.log
-        String logFilePath = path;
-
-        //2.保存日志
         try {
-            File logFile = new File(logFilePath);
+            File logFile = new File(path);
             if (!logFile.exists()) {
                 logFile.getParentFile().mkdirs();
-                logFile.createNewFile();
+                boolean result = logFile.createNewFile();
+                if (!result) {
+                    log.error("文件生成失败");
+                    throw new RuntimeException("文件生成失败");
+                }
             }
             FileWriter fileWriter = new FileWriter(logFile, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -92,6 +94,7 @@ public class LogGenerator {
             bufferedWriter.close();
         } catch (IOException e) {
             log.error("日志保存失败，code为：{} 报错为:{}", code, e.getMessage());
+            throw new RuntimeException("日志保存失败");
         }
     }
 

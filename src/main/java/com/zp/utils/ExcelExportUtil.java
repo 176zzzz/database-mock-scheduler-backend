@@ -6,20 +6,20 @@ import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.StrPool;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Office导出工具类
@@ -39,12 +39,11 @@ public class ExcelExportUtil {
      */
     public static <T> List<T> importExcel(MultipartFile file, Class<T> clazz, ImportParams importParams) {
         try {
-            List<T> list = ExcelImportUtil.importExcel(file.getInputStream(), clazz, importParams);
-            return list;
+            return ExcelImportUtil.importExcel(file.getInputStream(), clazz, importParams);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     /**
@@ -56,7 +55,7 @@ public class ExcelExportUtil {
      */
     public static void exportExcel(Workbook workbook, String fileName, HttpServletResponse response) {
         //给文件名拼接上日期
-        fileName = fileName + StrUtil.UNDERLINE + DateUtil.today();
+        fileName = fileName + StrPool.UNDERLINE + DateUtil.today();
         //输出文件
         try (OutputStream out = response.getOutputStream()) {
             //获取文件名并转码
@@ -150,7 +149,7 @@ public class ExcelExportUtil {
             if (sheet.getColumnWidth(i) < maxWith / 1.7) {
                 sheet.setColumnWidth(i, sheet.getColumnWidth(i) * 17 / 10);
             }
-            int newWidth = (int) (sheet.getColumnWidth(i) + 100);
+            int newWidth = sheet.getColumnWidth(i) + 100;
 
             //限制下最大宽度
             if (newWidth > maxWith) {
@@ -187,7 +186,7 @@ public class ExcelExportUtil {
         row.setHeightInPoints(maxRowHeight);
         //如果字符长度大于35，判断大了多少倍，根据倍数来设置相应的行高
         if (enterCnt > maxCnt) {
-            float d = enterCnt / maxCnt;
+            float d = (float)enterCnt / maxCnt;
             float f = maxRowHeight * d;
             row.setHeightInPoints((float) (f * 1.2));
         }

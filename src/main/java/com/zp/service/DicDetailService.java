@@ -15,6 +15,11 @@ import java.util.List;
  */
 public interface DicDetailService extends IService<DicDetail> {
 
+    /**
+     * getListByDicId 根据id获取字典详情列表
+     * @param dicId Long
+     * @return List<DicDetail>
+     */
     List<DicDetail> getListByDicId(Long dicId);
 
 }

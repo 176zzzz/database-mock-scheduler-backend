@@ -1,16 +1,12 @@
 package com.zp;
 
-import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.zp.common.exception.ServiceException;
-import com.zp.core.ds.DsHandle;
 import com.zp.core.ds.DsInfoProvider;
-import com.zp.mapper.TargetMapper;
 import com.zp.model.domain.TableColumnInfo;
+import java.util.List;
+import javax.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * DatabaseTest
@@ -23,15 +19,6 @@ public class DatabaseTest {
 
     @Resource
     private DsInfoProvider dsInfoProvider;
-
-    @Resource
-    private DynamicRoutingDataSource dynamicRoutingDataSource;
-
-    @Resource
-    private TargetMapper targetMapper;
-
-    @Resource
-    private DsHandle dsHandle;
 
     @Test
     public void testUpdate() throws  ServiceException {
